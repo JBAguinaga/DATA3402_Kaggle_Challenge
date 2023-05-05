@@ -77,11 +77,11 @@ import sklearn
 * Instantiate the models and run them on the data. Verify that your results make sense and determine how well one did versus the other.
 
 ### Overview of files in repository
-* HSQ Preproccessing: 
+* HSQ_Preproccessing: 
   * Downloads the CSV file and cleans the columns. Also removes redudant values from the dataframe. 
-* HSQ Encoding and Visualizaiton: 
+* HSQ_Encoding_and_Visualizaiton: 
   * Visualizes and creates plots of the attributes along with encoding the categorical variables to prepare them for algorithms.
-* HSQ Models: 
+* HSQ_Models: 
   * Instantiates the Random Forest and Linear Regression models, trains the models on the cleaned data and produces metrics.
 
 ### Software Setup
