@@ -1,4 +1,4 @@
-![](UTA-DataScience-Logo.png)
+![UTA-DataScience-Logo](https://user-images.githubusercontent.com/98781538/226424191-8cadd40f-3610-4ed5-93b1-9e9072098975.png)
 
 # Project Title
 
