@@ -9,16 +9,14 @@
 * Using an anonymized database of information on customer and sales activity, including property and coverage information, Homesite is challenging you to predict which customers will purchase a given quote. Accurately predicting conversion would help Homesite better understand the impact of proposed pricing changes and maintain an ideal portfolio of customer segments. 
 * The approach in this repository is for a regression task, using two common algorithms and comparing the results. Ultimately, the Random Forest model outperformed the Linear Regression model.
 
-## Summary of Workdone
-
-Include only the sections that are relevant an appropriate.
+## Summary
 
 ### Data
 
   * Type: CSV file, table format
     * Input: Different anonymized fields that correspond to a certain kind of metric (IE. GeographicField1, GeographicField2, PersonalField4, PropertyField5, etc.)
     * Output: Determining whether the quote will "convert" and will sale.
-  * Size: 330MB
+  * Size: 330 MB
   * Instances Train, Test: 260,753 patients for training, 173,836 for testing.
 
 #### Preprocessing / Clean up
