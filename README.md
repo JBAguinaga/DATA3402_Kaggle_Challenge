@@ -1,16 +1,13 @@
 ![UTA-DataScience-Logo](https://user-images.githubusercontent.com/98781538/226424191-8cadd40f-3610-4ed5-93b1-9e9072098975.png)
 
-# Project Title
+# Homesite Quote Conversion
 
-* **One Sentence Summary** Ex: This repository holds an attempt to apply LSTMs to Stock Market using data from
-"Get Rich" Kaggle challenge (provide link). 
+* This repository is my implementation of a Random Forest and Linear Regression algorithm to predict whether or not customers will purchase a quoted insurance plan.
 
 ## Overview
 
-* This section could contain a short paragraph which include the following:
-  * **Definition of the tasks / challenge**  Ex: The task, as defined by the Kaggle challenge is to use a time series of 12 features, sampled daily for 1 month, to predict the next day's price of a stock.
-  * **Your approach** Ex: The approach in this repository formulates the problem as regression task, using deep recurrent neural networks as the model with the full time series of features as input. We compared the performance of 3 different network architectures.
-  * **Summary of the performance achieved** Ex: Our best model was able to predict the next day stock price within 23%, 90% of the time. At the time of writing, the best performance on Kaggle of this metric is 18%.
+* Using an anonymized database of information on customer and sales activity, including property and coverage information, Homesite is challenging you to predict which customers will purchase a given quote. Accurately predicting conversion would help Homesite better understand the impact of proposed pricing changes and maintain an ideal portfolio of customer segments. 
+* The approach in this repository is for a regression task, using two common algorithms and comparing the results. Ultimately, the Random Forest model outperformed the Linear Regression model.
 
 ## Summary of Workdone
 
@@ -18,97 +15,93 @@ Include only the sections that are relevant an appropriate.
 
 ### Data
 
-* Data:
-  * Type: For example
-    * Input: medical images (1000x1000 pixel jpegs), CSV file: image filename -> diagnosis
-    * Input: CSV file of features, output: signal/background flag in 1st column.
-  * Size: How much data?
-  * Instances (Train, Test, Validation Split): how many data points? Ex: 1000 patients for training, 200 for testing, none for validation
+  * Type: CSV file, table format
+    * Input: Different anonymized fields that correspond to a certain kind of metric (IE. GeographicField1, GeographicField2, PersonalField4, PropertyField5, etc.)
+    * Output: Determining whether the quote will "convert" and will sale.
+  * Size: 330MB
+  * Instances Train, Test: 260,753 patients for training, 173,836 for testing.
 
 #### Preprocessing / Clean up
 
-* Describe any manipulations you performed to the data.
+  * Pandas was utilized to remove NaN values from some columns.
+  * Some columns that had information that was redudant/irrelevant.
 
 #### Data Visualization
-
-Show a few visualization of the data and say a few words about what you see.
+  * Although all fields are anonymized, some plots still provide some kind of information on how the values are distributed:
+  
+<img src="https://user-images.githubusercontent.com/98781538/236433171-e6032775-537f-4ef5-9fba-04c7c40d33a8.png" width="325" height="325"/><img src="https://user-images.githubusercontent.com/98781538/236433818-fe342195-45d5-4fb0-a770-c36cd6c036c3.png" width="325" height="325"/><img src="https://user-images.githubusercontent.com/98781538/236434494-8efdd1ef-5e0e-4014-9735-ce1dc044a80d.png" width="325" height="325"/> 
+* Figure 1,2,3: We can see that for *Salesfield2B*, the distribution has a subtle skew to the left whereas with *PropertyField16A* the values are heavily skewed to the right. Some anonymized features were also encoded in a binary format, such as *PersonalField32*, indicating the potential Buyer has or does not have some attribute.
 
 ### Problem Formulation
 
 * Define:
-  * Input / Output
-  * Models
-    * Describe the different models you tried and why.
-  * Loss, Optimizer, other Hyperparameters.
+  * Input: Anonymized values for different fields pertaining to property and potential buyer.
+  * Output: "QuoteConversion_Flag" value of whether or not the customer will purchase the quote.
+  * Models:
+    * *Linear Regression*: Linear regression estimates the relationship between a dependent variable and an independent variable. It fits linear model to minimize the residual sum of squares between the observed targets in the dataset, and the targets predicted by the linear approximation.
+    * *Random Forest*: Ensemble learning method for classification, regression and other tasks that operates by constructing a multitude of decision trees at training time. For regression tasks, the mean or average prediction of the individual trees is returned
 
 ### Training
 
-* Describe the training:
-  * How you trained: software and hardware.
-  * How did training take.
-  * Training curves (loss vs epoch for test/train).
-  * How did you decide to stop training.
-  * Any difficulties? How did you resolve them?
+* Both models were trained exclusively on Google Colaboratory. The training did not take more than 5 minutes for each model and the results were plotted. 
 
 ### Performance Comparison
 
-* Clearly define the key performance metric(s).
-* Show/compare results in one table.
-* Show one (or few) visualization(s) of results, for example ROC curves.
+* The performance of our algorithms were measured by:
+*  A) *Mean Squared Error*, B) *Mean Absolute Error* and  C) *R<sup>2</sup>*. 
 
+* The Random Forest and Linear Regression gave us the following values:
+       <img src="https://user-images.githubusercontent.com/98781538/236441867-22d16def-5d6e-4608-8b77-a537a43e0df4.png" width="900" height="450"/>
+         
+  
 ### Conclusions
-
-* State any conclusions you can infer from your work. Example: LSTM work better than GRU.
+* Metrics for our models showed extremely high performance, more than likely made an error somewhere during the preprocessing/encoding, so it's important to be able to distuingish between a correct score and a rational one.
+* Despite the flawed setup, Random Forest still scored better than Linear Regression on all metrics.
 
 ### Future Work
 
-* What would be the next thing that you would try.
-* What are some other studies that can be done starting from here.
+* In future, be more meticulous with pre-processing and cleaning the data. Messing something up and producing a good output is potentially even worse than the inverse.
+* Understand how to compare the different algorithms in more depth. How can I go back and modify the datasets in such a way that one could potentially beat the other or adjust certain parameters when instantiating the models that might have one algorithm perform better than the other. Understanding these differences could help me understand different use cases for real-world scenarios.
 
 ## How to reproduce results
 
-* In this section, provide instructions at least one of the following:
-   * Reproduce your results fully, including training.
-   * Apply this package to other data. For example, how to use the model you trained.
-   * Use this package to perform their own study.
-* Also describe what resources to use for this package, if appropirate. For example, point them to Collab and TPUs.
+* Download dataset
+* Since the majority of this attempt was done on Google Colaboraty, it's recommended for future replications that want to follow this attempt.
+* Import the necessary Libraries:
+```
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas
+import sklearn
+```
+* Begin with cleaning the dataset by figuring out which columns have missing/NaN values and adjust the data accordingly. 
+* After cleaning, decide how best to approach the encoding. This approach in particular used One-hot encoding.
+* Instantiate the models and run them on the data. Verify that your results make sense and determine how well one did versus the other.
 
 ### Overview of files in repository
-
-* Describe the directory structure, if any.
-* List all relavent files and describe their role in the package.
-* An example:
-  * utils.py: various functions that are used in cleaning and visualizing data.
-  * preprocess.ipynb: Takes input data in CSV and writes out data frame after cleanup.
-  * visualization.ipynb: Creates various visualizations of the data.
-  * models.py: Contains functions that build the various models.
-  * training-model-1.ipynb: Trains the first model and saves model during training.
-  * training-model-2.ipynb: Trains the second model and saves model during training.
-  * training-model-3.ipynb: Trains the third model and saves model during training.
-  * performance.ipynb: loads multiple trained models and compares results.
-  * inference.ipynb: loads a trained model and applies it to test data to create kaggle submission.
-
-* Note that all of these notebooks should contain enough text for someone to understand what is happening.
+* HSQ Preproccessing: 
+  * Downloads the CSV file and cleans the columns. Also removes redudant values from the dataframe. 
+* HSQ Encoding and Visualizaiton: 
+  * Visualizes and creates plots of the attributes along with encoding the categorical variables to prepare them for algorithms.
+* HSQ Models: 
+  * Instantiates the Random Forest and Linear Regression models, trains the models on the cleaned data and produces metrics.
 
 ### Software Setup
-* List all of the required packages.
-* If not standard, provide or point to instruction for installing the packages.
-* Describe how to install your package.
-
+* Standard Python "Stack":
+  * NumPy
+  * Pandas
+  * Matplotlib
+  * Sklearn 
+* Google Colaboratory (recommended)
 ### Data
 
-* Point to where they can download the data.
-* Lead them through preprocessing steps, if necessary.
-
-### Training
-
-* Describe how to train the model
-
-#### Performance Evaluation
-
-* Describe how to run the performance evaluation.
-
+*  Dataset from Kaggle: https://www.kaggle.com/competitions/homesite-quote-conversion/data
+*  Attention to detail is crucial when preprocessing. Might be useful to visualize first before attempting to clean. 
 
 ## Citations
 
-* Provide any references.
+  * https://www.analyticsvidhya.com/blog/2021/06/linear-regression-in-machine-learning/
+  * https://www.mygreatlearning.com/blog/mean-square-error-explained/
+  * https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html#sklearn.ensemble.RandomForestRegressor
+  * https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html#sklearn.linear_model.LinearRegression
+
